@@ -145,17 +145,13 @@ public class AviaSoulsTest {
         Ticket[] result = aviaSouls.searchAndSortBy("Москва", "Омск", comparator);
 
         int expected = 3;
-        int[] expectedFlightTimes = {9, 14, 17};
-        int actual = result.length;
-        int[] actualFlightTimes = new int[result.length];
+        int expectedFlightTime1 = ticket5.getTimeTo() - ticket5.getTimeFrom(); // 9 часов
+        int expectedFlightTime2 = ticket1.getTimeTo() - ticket1.getTimeFrom(); // 14 часов
+        int expectedFlightTime3 = ticket3.getTimeTo() - ticket3.getTimeFrom(); // 17 часов
 
-        for (int i = 0; i < result.length; i++) {
-            actualFlightTimes[i] = result[i].getTimeTo() - result[i].getTimeFrom();
-        }
-        Assertions.assertEquals(expected, actual);
-
-        for (int i = 0; i < expectedFlightTimes.length; i++) {
-            Assertions.assertEquals(expectedFlightTimes[i], actualFlightTimes[i]);
-        }
+        Assertions.assertEquals(expected, result.length);
+        Assertions.assertEquals(expectedFlightTime1, result[0].getTimeTo() - result[0].getTimeFrom());
+        Assertions.assertEquals(expectedFlightTime2, result[1].getTimeTo() - result[1].getTimeFrom());
+        Assertions.assertEquals(expectedFlightTime3, result[2].getTimeTo() - result[2].getTimeFrom());
     }
 }
