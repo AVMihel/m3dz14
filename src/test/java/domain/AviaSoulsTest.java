@@ -44,11 +44,11 @@ public class AviaSoulsTest {
         aviaSouls.add(ticket5);
         aviaSouls.add(ticket6);
 
-        Ticket[] result = aviaSouls.search("Новосибирск", "Пекин");
+        Ticket[] actual = aviaSouls.search("Новосибирск", "Пекин");
 
         Ticket[] expected = {ticket1, ticket2, ticket3, ticket5, ticket4};
 
-        Assertions.assertArrayEquals(expected, result);
+        Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
@@ -65,11 +65,11 @@ public class AviaSoulsTest {
         aviaSouls.add(ticket3);
         aviaSouls.add(ticket4);
 
-        Ticket[] result = aviaSouls.search("Белгород", "Симферополь");
+        Ticket[] actual = aviaSouls.search("Белгород", "Симферополь");
 
         Ticket[] expected = {};
 
-        Assertions.assertArrayEquals(expected, result);
+        Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
@@ -90,11 +90,11 @@ public class AviaSoulsTest {
         aviaSouls.add(ticket5);
         aviaSouls.add(ticket6);
 
-        Ticket[] result = aviaSouls.search("Москва", "Бобруйск");
+        Ticket[] actual = aviaSouls.search("Москва", "Бобруйск");
 
         Ticket[] expected = {ticket4};
 
-        Assertions.assertArrayEquals(expected, result);
+        Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
@@ -142,16 +142,9 @@ public class AviaSoulsTest {
 
         TicketTimeComparator comparator = new TicketTimeComparator();
 
-        Ticket[] result = aviaSouls.searchAndSortBy("Москва", "Омск", comparator);
+        Ticket[] actual = aviaSouls.searchAndSortBy("Москва", "Омск", comparator);
+        Ticket[] expected = {ticket5, ticket1, ticket3};
 
-        int expected = 3;
-        int expectedFlightTime1 = ticket5.getTimeTo() - ticket5.getTimeFrom(); // 9 часов
-        int expectedFlightTime2 = ticket1.getTimeTo() - ticket1.getTimeFrom(); // 14 часов
-        int expectedFlightTime3 = ticket3.getTimeTo() - ticket3.getTimeFrom(); // 17 часов
-
-        Assertions.assertEquals(expected, result.length);
-        Assertions.assertEquals(expectedFlightTime1, result[0].getTimeTo() - result[0].getTimeFrom());
-        Assertions.assertEquals(expectedFlightTime2, result[1].getTimeTo() - result[1].getTimeFrom());
-        Assertions.assertEquals(expectedFlightTime3, result[2].getTimeTo() - result[2].getTimeFrom());
+        Assertions.assertArrayEquals(expected, actual);
     }
 }
